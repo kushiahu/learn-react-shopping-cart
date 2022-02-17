@@ -21,9 +21,12 @@ const styles = {
 
 class Cart extends Component {
   render() {
+    const { quantity } = this.props
     return(
-      <div>
-        <span style={ styles.bubble }><BubbleAlert value={1} /></span>
+      <div>              
+        <span style={ styles.bubble }>
+        { quantity !== 0 ? <BubbleAlert quantity={ quantity } /> : null }          
+        </span>
         <button style={ styles.cart }>Cart</button>
       </div>
     )

@@ -17,10 +17,11 @@ const styles = {
 
 class Navbar extends Component {
   render() {
+    const { quantity } = this.props
     return(
       <nav style={ styles.navbar }>
         <Logo />
-        <Cart />
+        <Cart quantity={ quantity } />
       </nav>
     )
   }

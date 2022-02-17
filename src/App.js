@@ -19,15 +19,23 @@ class App extends Component {
 
   addCart = (product) => {
     const { cart } = this.state
-    const item = cart.find(x => x.name === product.name)
-    if(item) {
-      item.quantity += 1
-      return this.setState({ cart })
-    }
-    console.info(item)
-    // if (cart.find(x => x.name === product.name)) {
-    //   const newCart = cart.map(x => x.name === product.name)
+    // My solution
+    // const item = cart.find(x => x.name === product.name)
+    // if(item) {
+    //   item.quantity += 1
+    //   return this.setState({ cart })
     // }
+    // Better solution !?
+    if (cart.find(item => item.name === product.name)) {
+      const newCart = cart.map(item => item.name === product.name
+        ? ({
+          ...item,
+          quantity: item.quantity + 1
+        })
+        : item
+      )
+      return this.setState({ cart: newCart })
+    }
     return this.setState({
       cart: this.state.cart.concat({
         ...product,
@@ -36,11 +44,15 @@ class App extends Component {
     })
   }
 
+  getQuantity = () => {
+    const { cart } = this.state
+    return cart.reduce((acc, el) => acc + el.quantity, 0)
+  }
+
   render() {
-    console.info(this.state.cart)
     return (
       <div>
-        <Navbar></Navbar>
+        <Navbar quantity={ this.getQuantity() }></Navbar>
         <Layout>
           <Title />
           <Products
