@@ -44,15 +44,10 @@ class App extends Component {
     })
   }
 
-  getQuantity = () => {
-    const { cart } = this.state
-    return cart.reduce((acc, el) => acc + el.quantity, 0)
-  }
-
   render() {
     return (
       <div>
-        <Navbar quantity={ this.getQuantity() }></Navbar>
+        <Navbar cart={ this.state.cart }></Navbar>
         <Layout>
           <Title />
           <Products
